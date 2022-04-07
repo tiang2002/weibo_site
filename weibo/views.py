@@ -9,7 +9,7 @@ import re
 
 
 def index(request):
-    with open('weibo/templates/weibo/pic.txt', 'r') as file:
+    with open('weibo/pic.txt', 'r') as file:
         chart_pie = file.read()
 
     return render(request, 'weibo/index.html', {'chart_pie': chart_pie})
