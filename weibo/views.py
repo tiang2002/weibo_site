@@ -9,10 +9,8 @@ import re
 
 
 def index(request):
-    with open('weibo/templates/weibo/pic.html', 'r') as file:
-        data = file.read()
-    data = data.replace('\n', '')
-    chart_pie = re.findall('<body>(.*?)</body>', data)[0]
+    with open('weibo/templates/weibo/pic.txt', 'r') as file:
+        chart_pie = file.read()
 
     return render(request, 'weibo/index.html', {'chart_pie': chart_pie})
 

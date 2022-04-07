@@ -32,9 +32,14 @@ def draw_pie(labels, values):
 
     )
     fig = go.Figure(data=trace, layout=layout)
-    fig.write_html('D:\codefield\python\weibo_site\weibo\\templates\weibo\\'+'pic.html')
+    fig.write_html('weibo/templates/weibo\\'+'pic.html')
     # py.plot(fig)
-
+    with open(r'weibo/templates/weibo/pic.html', 'r') as file:
+        data = file.read()
+    data = data.replace('\n', '')
+    data = re.findall('<body>(.*?)</body>', data)[0]
+    with open(r'weibo/templates/weibo/pic.txt', 'w+') as file:
+        file.write(data)
 
 def get_pie_html():
     data = []
