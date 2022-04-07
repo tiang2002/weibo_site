@@ -21,7 +21,11 @@
             left: 280px;
             top: 240px;
         }
-
+        .pie{
+            position: absolute;
+            left: 60%;
+            top: 0px;
+        }
 
         .heading {
             position: absolute;
@@ -35,6 +39,9 @@
 <body>
 <h1 class="heading">微博舆情监测与分析</h1>
 <a href="pie/" class="input">展示饼图统计</a>
+<div class="pie">
+    {{chart_pie|safe}}
 
+</div>
 </body>
 </html>

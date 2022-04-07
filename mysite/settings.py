@@ -24,13 +24,11 @@ SECRET_KEY = 'django-insecure-v%$hm8!1zy92hgktvo%z)7o-gha@3c@4l&b#@@d3&dfeb9$3m9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'polls',
-    'hanmu',
     'weibo',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -103,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'asia/shanghai'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
