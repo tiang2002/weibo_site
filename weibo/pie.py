@@ -44,7 +44,7 @@ def draw_pie(labels, values):
 
 def get_pie_html():
     data = []
-    with open('weibo\emotion.csv', 'r') as file:
+    with open(r'weibo\emotion.csv', 'r') as file:
         reader = csv.reader(file)
         next(reader)
         for each in enumerate(reader):
