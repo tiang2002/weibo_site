@@ -21,16 +21,32 @@
             left: 280px;
             top: 240px;
         }
-        .pie{
+
+        .pie {
+            border-radius: 63px;
+            background: #e0e0e0;
+            box-shadow: 5px 5px 13px #c7c7c7,
+            -5px -5px 13px #f9f9f9;
             position: absolute;
-            left: 60%;
-            top: 0px;
+            left: 10%;
+            top: 200px;
+            height: 500px;
+            width: 600px;
+        }
+
+        .pie_text {
+            position: absolute;
+            left: 15%;
+            top: 140px;
+            height: 500px;
+            width: 600px;
+            color: blue;
         }
 
         .heading {
             position: absolute;
             left: 260px;
-            top: 100px;
+            top: 70px;
             color: orange;
         }
     </style>
@@ -39,9 +55,9 @@
 <body>
 <h1 class="heading">微博舆情监测与分析</h1>
 <!--<a href="pie/" class="input">展示饼图统计</a>-->
-<div class="pie">
-    {{chart_pie|safe}}
-
+<div>
+    <h2 class="pie_text">情感分析统计饼图</h2>
+    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>
 </div>
 </body>
 </html>

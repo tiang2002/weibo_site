@@ -19,32 +19,35 @@ def draw_pie(labels, values):
             # hole=0.7,
             hoverinfo='label+percent',  # hoverinfo属性用于控制当用户将鼠标指针放到环形图上时，显示的内容
             # pull=[0.1, 0, 0, 0, 0],  # 弹出效果
+            textfont=dict(size=60)
         )
     ]
     layout = go.Layout(
-        title='分析图',
-        titlefont=dict(size=30),
+        # title='情感分析图',
+        # titlefont=dict(size=40),
         showlegend=True,
         legend=dict(
-            x=0.8,
-            y=1
+            x=0.7,
+            y=1,
+            font=dict(size=40)
         ),
 
     )
+
     fig = go.Figure(data=trace, layout=layout)
-    fig.write_html('weibo/templates/weibo\\' + 'pic.html')
-    # py.plot(fig)
-    with open(r'weibo/templates/weibo/pic.html', 'r') as file:
-        data = file.read()
-    data = data.replace('\n', '')
-    data = re.findall('<body>(.*?)</body>', data)[0]
-    with open(r'weibo/templates/weibo/pic.txt', 'w+') as file:
-        file.write(data)
+    fig.write_html('templates/weibo\\' + 'pic.html')
+    py.plot(fig)
+    # with open(r'weibo/templates/weibo/pic.html', 'r') as file:
+    #     data = file.read()
+    # data = data.replace('\n', '')
+    # data = re.findall('<body>(.*?)</body>', data)[0]
+    # with open(r'weibo/templates/weibo/pic.txt', 'w+') as file:
+    #     file.write(data)
 
 
 def get_pie_html():
     data = []
-    with open(r'weibo\emotion.csv', 'r') as file:
+    with open(r'emotion.csv', 'r') as file:
         reader = csv.reader(file)
         next(reader)
         for each in enumerate(reader):
@@ -60,4 +63,4 @@ def get_pie_html():
         else:
             num[1] += 1
     draw_pie(headers, num)
-# get_pie_html()
+get_pie_html()
