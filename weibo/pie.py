@@ -47,20 +47,22 @@ def draw_pie(labels, values):
 
 def get_pie_html():
     data = []
-    with open(r'emotion.csv', 'r') as file:
+    with open(r'weibo/emotion.csv', 'r') as file:
         reader = csv.reader(file)
         next(reader)
         for each in enumerate(reader):
             data.append(each[1])
 
-    num = [0, 0, 0]
+    num = [{'value': 0, 'name': 'positive'}, {'value': 0, 'name': 'negative'}, {'value': 0, 'name': 'mid'}]
     headers = ['positive', 'negative', 'mid']
     for each in data:
         if each[9] == 'positive':
-            num[0] += 1
+            num[0]['value'] += 1
         elif each[9] == 'negative':
-            num[2] += 1
+            num[2]['value'] += 1
         else:
-            num[1] += 1
-    draw_pie(headers, num)
+            num[1]['value'] += 1
+
+    return headers, num
+    # draw_pie(headers, num)
 # get_pie_html()

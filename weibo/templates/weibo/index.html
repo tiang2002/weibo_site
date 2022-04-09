@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>微博舆情监测与分析</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <link rel="icon"
           href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
-
+    <script>
+        {{js|safe}}
+    </script>
     <style>
-
+        /*{{css|safe}}*/
         body {
 
             background: url("https://i.loli.net/2021/09/20/tPhkKdXAzU259Nc.jpg");
@@ -44,20 +48,92 @@
         }
 
         .heading {
-            position: absolute;
-            left: 260px;
-            top: 70px;
+            position: relative;
+            left: 10%;
+            top: 10%;
             color: orange;
         }
+
+        .pleftbox2top {
+            /*background-size: 100% 100%;*/
+            /*background-repeat: no-repeat;*/
+            /*background-position: top center;*/
+            left: 20%;
+            width: 96.8%;
+            height: 60%;
+            margin-top: 7%;
+        }
+
+        .pleftbox2topcont {
+            width: 90.1%;
+            margin-top: 2%;
+            margin-left: 5%;
+            height: 88%
+        }
+
     </style>
 
 </head>
 <body>
 <h1 class="heading">微博舆情监测与分析</h1>
 <!--<a href="pie/" class="input">展示饼图统计</a>-->
-<div>
-    <h2 class="pie_text">情感分析统计饼图</h2>
-    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>
+<!--<div>-->
+
+<!--    <h2 class="pie_text">情感分析统计饼图</h2>-->
+<!--    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>-->
+<!--</div>-->
+<div class="pleftbox2top">
+    <h2 class="tith2">情感分析图</h2>
+    <div id="pleftbox2top" class="pleftbox2topcont" _echarts_instance_="ec_1649499571791"
+         style="-webkit-tap-highlight-color: transparent; user-select: none;">
+        <div style="position: absolute; overflow: hidden; width: 602px; height: 580px; padding: 0px; margin: 0px; border-width: 0px; cursor: pointer;">
+            <canvas data-zr-dom-id="zr_0" width="301" height="290"
+                    style="position: absolute; left: 0px; top: 0px; width: 602px; height: 580px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+        </div>
+    </div>
 </div>
+
+<script>
+    var headers = {{ header|safe }};
+    var nums = {{ num|safe }};
+    console.log(headers)
+    var myChart = echarts.init(document.getElementById('pleftbox2top'));
+    option = {
+        color: ['#d2d17c', '#00b7ee', '#5578cf', '#5ebbeb', '#d16ad8', '#f8e19a', '#00b7ee', '#81dabe', '#5fc5ce'],
+        backgroundColor: 'rgba(1,202,217,.2)',
+        grid: {
+            left: 20,
+            right: 20,
+            top: 0,
+            bottom: 20
+        },
+        legend: {
+            top: 10,
+            textStyle: {
+                fontSize: 23,
+                color: 'rgba(255,255,255,.7)'
+            },
+            data: headers
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '55%'],
+                data: nums
+                ,
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
 </body>
 </html>
