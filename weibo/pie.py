@@ -63,4 +63,4 @@ def get_pie_html():
         else:
             num[1] += 1
     draw_pie(headers, num)
-get_pie_html()
+# get_pie_html()

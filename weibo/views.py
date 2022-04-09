@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from .pie import get_pie_html
+# from .pie import get_pie_html
 import re
 
 
