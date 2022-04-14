@@ -19,10 +19,10 @@ def index(request):
     header, num = get_pie_html()
     header = json.dumps(header)
     num = json.dumps(num)
-    with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/style.css', 'r', encoding='utf-8') as file:
-        css = file.read()
-    with open(PROJECT_ROOT + r'/weibo/templates/weibo/js/echarts.min.js', 'r', encoding='utf-8') as file:
-        js = file.read()
+    # with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/style.css', 'r', encoding='utf-8') as file:
+    #     css = file.read()
+    # with open(PROJECT_ROOT + r'/weibo/templates/weibo/js/echarts.min.js', 'r', encoding='utf-8') as file:
+    #     js = file.read()
 
     return render(request, 'weibo/index.html', locals())
 
