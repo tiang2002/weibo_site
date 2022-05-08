@@ -100,7 +100,7 @@
 
 <!-- Main -->
 <main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;">
-<div id="pointmap" style="height:   700px;width:1500px;left: 5% ">
+<div id="pointmap" style="height:700px;width:1500px;left: 5% ">
 </div>
 </main>
 
@@ -111,6 +111,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
 <script>
+
     let point = echarts.init(document.getElementById('pointmap'));
     const data = [
         {
@@ -119,7 +120,7 @@
             x: point.getWidth() / 2,
             y: point.getHeight() / 2,
             symbolSize: 20,
-            id: '-1'
+            id: '0'
         }
     ];
     const edges = [];
@@ -154,14 +155,19 @@
     //             console.log(params);
     //         }
     //     });
-    let points = JSON.parse('{{points|safe}}');
-    for (let i = 0; i < points.length; i++) {
-        data.push({
-            name: i + 1,
-            id: i
-        });
-        var source = points[i][0];
-        var target = points[i][1];
+    // let points = JSON.parse('{{points|safe}}');
+    let ids = {{ids|safe}};
+    let relations = {{relations|safe}};
+    ids =  Array.from(new Set(ids));;
+    for(let i of ids)
+    {
+        data.push({name:i});
+    }
+    console.log(data);
+    for(let i of relations)
+    {
+        let source = i[0];
+        let target = i[1];
         if (source !== target) {
             edges.push({
                 source: source,
@@ -169,6 +175,20 @@
             });
         }
     }
+    // for (let i = 0; i < ids.length; i++) {
+    //     data.push({
+    //         name: i + 1,
+    //         id: i
+    //     });
+    //     let source = points[i][0];
+    //     let target = points[i][1];
+    //     if (source !== target) {
+    //         edges.push({
+    //             source: source,
+    //             target: target
+    //         });
+    //     }
+    // }
     let tooltip = {//提示框组件
         trigger: 'item', //item数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
         axisPointer: {
@@ -182,7 +202,7 @@
         series: [
             {
                 // label: i,
-                // focusNodeAdjacency: true,//加上后静止
+                focusNodeAdjacency: true,//加上后静止
                 roam: true,
                 data: data,
                 edges: edges,

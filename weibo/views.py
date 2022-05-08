@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from .pie import get_pie_html
 import re
-import os
+import os, csv
 
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
@@ -36,7 +36,17 @@ def china(request):
 
 
 def points(request):
-    points = [[0, 1], [1, 2], [3, 1]]
+    ids = []
+    with open(PROJECT_ROOT + r'\weibo\all_id_list.csv') as file:
+        reader = csv.reader(file)
+        for each in reader:
+            ids.append(each[0])
+    relations = []
+    with open(PROJECT_ROOT + r'\weibo\weibo_forward_list6.csv') as file:
+        reader = csv.reader(file)
+        reader.__next__()
+        for each in reader:
+            relations.append(each)
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
         css = file.read()
     return render(request, 'weibo/points.html', locals())
