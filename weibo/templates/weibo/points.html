@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="icon"
+          href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
+
+    <style>
+        {{css|safe}}
+
+    </style>
+
+</head>
+<body>
+<!--<h1 class="heading">微博舆情监测与分析</h1>-->
+<!--<a href="pie/" class="input">展示饼图统计</a>-->
+<!--<div>-->
+
+<!--    <h2 class="pie_text">情感分析统计饼图</h2>-->
+<!--    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>-->
+<!--</div>-->
+<!--<div class="pleftbox2top" style="width: 500px;height: 400px">-->
+<!--    <h2 class="tith2">情感分析图</h2>-->
+<!--    <div id="pleftbox2top" class="pleftbox2topcont"></div>-->
+<!--</div>-->
+<!-- Navbar -->
+<nav id="navbar">
+    <ul class="navbar-items flexbox-col">
+        <li class="navbar-logo flexbox-left">
+            <a class="navbar-item-inner flexbox">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 1438.88 1819.54">
+                    <polygon points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"/>
+                    <polygon
+                            points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"/>
+                </svg>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:index'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="search-outline">
+                    </ion-icon>
+                </div>
+                <span class="link-text">主页面</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:chinamap'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="home-outline"></ion-icon>
+                </div>
+                <span class="link-text">中国地图</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:points'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="folder-open-outline"></ion-icon>
+                </div>
+                <span class="link-text">点线图</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="pie-chart-outline"></ion-icon>
+                </div>
+                <span class="link-text">Dashboard</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="people-outline"></ion-icon>
+                </div>
+                <span class="link-text">Team</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                </div>
+                <span class="link-text">Support</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="settings-outline"></ion-icon>
+                </div>
+                <span class="link-text">Settings</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Main -->
+<main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;">
+<div id="pointmap" style="height:   700px;width:1500px;left: 5% ">
+</div>
+</main>
+
+
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script>
+    let point = echarts.init(document.getElementById('pointmap'));
+    const data = [
+        {
+            name: "0",
+            fixed: true,
+            x: point.getWidth() / 2,
+            y: point.getHeight() / 2,
+            symbolSize: 20,
+            id: '-1'
+        }
+    ];
+    const edges = [];
+    option = {
+        tooltip: {//提示框组件
+            trigger: 'item', //item数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+            axisPointer: {
+                // 坐标轴指示器，坐标轴触发有效
+                // type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: '{c}' //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+        },
+        series: [
+            {
+                type: 'graph',
+                layout: 'force',
+                animation: false,
+                data: data,
+                force: {
+                    // initLayout: 'circular'
+                    // gravity: 0
+                    repulsion: 100,
+                    edgeLength: 5
+                },
+                edges: edges
+            }
+        ]
+    };
+    point.setOption(option);
+    // point.on('click', function (params) {
+    //         {
+    //             console.log(params);
+    //         }
+    //     });
+    let points = JSON.parse('{{points|safe}}');
+    for (let i = 0; i < points.length; i++) {
+        data.push({
+            name: i + 1,
+            id: i
+        });
+        var source = points[i][0];
+        var target = points[i][1];
+        if (source !== target) {
+            edges.push({
+                source: source,
+                target: target
+            });
+        }
+    }
+    let tooltip = {//提示框组件
+        trigger: 'item', //item数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+        axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            // type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        },
+        formatter: '{b}{c}' //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+    }
+    point.setOption({
+
+        series: [
+            {
+                // label: i,
+                // focusNodeAdjacency: true,//加上后静止
+                roam: true,
+                data: data,
+                edges: edges,
+                tooltip: tooltip,
+                itemStyle: {
+                    normal: {
+                        color: '#1890FF',
+                        label: {
+                            color: '#000', //字的颜色
+                            borderColor: '#A618FF',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        },
+                        lineStyle: {
+                            color: '#A618FF',
+                            width: 3
+                        }
+                    }
+                },
+
+            }
+        ]
+    })
+
+</script>
+
+</body>
+</html>

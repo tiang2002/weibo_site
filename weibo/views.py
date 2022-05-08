@@ -35,6 +35,13 @@ def china(request):
     return render(request, 'weibo/china.html', locals())
 
 
+def points(request):
+    points = [[0, 1], [1, 2], [3, 1]]
+    with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+    return render(request, 'weibo/points.html', locals())
+
+
 def pie(request):
     # get_pie_html()
 

@@ -8,6 +8,7 @@ urlpatterns = [
     # 例如: /weibo/ <- 该参数已由根urls.py接收，不再传入该二级路由
     path('', views.index, name='index'),
     path('chinamap/', views.china, name='chinamap'),
+    path('points/', views.points, name='points'),
 
     # path('pie/', views.pie, name='pie'),
 
