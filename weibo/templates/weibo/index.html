@@ -19,28 +19,28 @@
   box-sizing: border-box;
 }
 
-/*html {*/
-/*  width: 100%;*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*  height: 100%;*/
-/*}*/
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-/*body {*/
-/*  font-family: "Montserrat", sans-serif;*/
-/*  margin: 0;*/
-/*  width: 100%;*/
-/*  height: 100vh;*/
-/*  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);*/
-/*  background-size: 200% 200%;*/
-/*  -webkit-animation: gradient 15s ease infinite;*/
-/*          animation: gradient 15s ease infinite;*/
-/*  display: flex;*/
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
+  background-size: 200% 200%;
+  -webkit-animation: gradient 15s ease infinite;
+          animation: gradient 15s ease infinite;
+  display: flex;
 /*  justify-content: center;*/
 /*  align-items: center;*/
-/*  flex-direction: column;*/
-/*  padding: 32px;*/
-/*}*/
+  flex-direction: column;
+  /*padding: 32px;*/
+}
 
 @-webkit-keyframes gradient {
   0% {
@@ -130,30 +130,35 @@ p {
 .slider-image-wrapper {
   /*height: 400px;*/
   /*      float: bottom;*/
+  /*  max-height: 811px;*/
 
-    max-height: 811px;
-    height: 60%;
+
+  height: 100%;
   width: 100%;
+    position: relative;
   overflow: hidden;
 }
 
 .slider-item {
-  width: 100%;
+  width: 90%;
   height: 100%;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+    position:relative ;
+
   flex-shrink: 0;
   opacity: 0;
   background: linear-gradient(270deg, #f7f9ff 0%, #f2f6ff 100%);
-  cursor: -webkit-grab;
+  /*cursor: -webkit-grab;*/
   cursor: grab;
 }
 .slider-item-content {
   padding: 32px;
   display: flex;
   flex-direction: column;
+
   justify-content: center;
   transition: 0.4s;
 }
@@ -169,9 +174,9 @@ p {
 
 .slider-image {
   width: 100%;
-  height: 60%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 100%;
+  /*-o-object-fit: cover;*/
+  /*   object-fit: cover;*/
   transition: 0.2s;
 }
 

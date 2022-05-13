@@ -159,10 +159,42 @@
     let ids = {{ids|safe}};
     let relations = {{relations|safe}};
     ids =  Array.from(new Set(ids));;
-    for(let i of ids)
-    {
-        data.push({name:i});
+    let i = 0,j=0;
+    let colors=['#f80000','#f3e017','#1890FF'];
+    while(1) {
+        if (i > 2) {
+            i = 0;
+        }
+        if (j == ids.length) {
+            break;
+        }
+
+        for (; j < ids.length; j++) {
+            if(ids[j].length==0)
+            {
+                j++;
+                break;
+            }
+            data.push({
+                name: ids[j][0],
+                itemStyle: {
+                    normal: {
+                        color: colors[i],
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                }
+            });
+        }
+        i++;
     }
+    // for(let i of ids)
+    // {
+    //     data.push({name:i,});
+    // }
     console.log(data);
     for(let i of relations)
     {
@@ -209,14 +241,14 @@
                 tooltip: tooltip,
                 itemStyle: {
                     normal: {
-                        color: '#1890FF',
-                        label: {
-                            color: '#000', //字的颜色
-                            borderColor: '#A618FF',  //拐点边框颜色
-                            // show: true  //设置这个就会把值显示在图表上
-                        },
+                    //     color: '#1890FF',
+                    //     label: {
+                    //         color: '#000', //字的颜色
+                    //         borderColor: '#A618FF',  //拐点边框颜色
+                    //         // show: true  //设置这个就会把值显示在图表上
+                    //     },
                         lineStyle: {
-                            color: '#A618FF',
+                            color: '#9f07ff',
                             width: 3
                         }
                     }
