@@ -15,13 +15,12 @@
   padding: 0;
   height: 100%;
 }
-
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(45deg, #ffffff 14.7%, rgba(0, 0, 0, 0.46) 73%);
+  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
   background-size: 200% 200%;
   -webkit-animation: gradient 15s ease infinite;
           animation: gradient 15s ease infinite;
@@ -143,7 +142,9 @@ body {
             x: point.getWidth() / 2,
             y: point.getHeight() / 2,
             symbolSize: 40,
-            id: '0'
+            id: '0',
+
+
         }
     ];
     const edges = [];
@@ -202,7 +203,7 @@ body {
                 symbolSize: 20,
                 itemStyle: {
                     normal: {
-                        color: 'rgb(255,255,255)',
+                        color: '#808080',
                         label: {
                             color: '#000', //字的颜色
                             // borderColor: '#52ff18',  //拐点边框颜色
@@ -212,7 +213,6 @@ body {
                 }
             });
         }
-        i++;
     }
     // for(let i of ids)
     // {
@@ -302,34 +302,31 @@ body {
     }
     return this;
 }//format方法的定义
-    let colors=[
-    '#c25ec8','#fd925f','#f80000',
-    '#fda15b','#f3e017','#ff7900',
-    '#f95ba2','#3a7cdc','#7760dd',
-    '#506fe3'];
-    var i =0;
+    // let colors=[
+    // '#c25ec8','#fd925f','#f80000',
+    // '#fda15b','#f3e017','#ff7900',
+    // '#f95ba2','#3a7cdc','#7760dd',
+    // '#506fe3'];
+    // var i =0;
     let flag=1;
+    var former = 0;
     button.addEventListener("click", function (){
         if(flag==0)
         {
             return ;
         }
-
-        for (count_for_click;count_for_click<ids.length;count_for_click++)
+        for (former;former<count_for_click;former++)
         {
-            if (i == colors.length)
+            if(ids[former].length==0)
             {
-                i=0;
-            }
-            if(ids[count_for_click].length==0)
-            {
-                count_for_click++;
-                empty_lists++;
+                // count_for_click++;
+                // empty_lists++;
+                former++;
                 break;
             }
-            data[count_for_click+1-empty_lists]['itemStyle']={
+            data[former+1-empty_lists]['itemStyle']={
                     normal: {
-                        color:colors[i],
+                        color:'#3a7cdd',
                         label: {
                             color: '#000', //字的颜色
                             // borderColor: '#52ff18',  //拐点边框颜色
@@ -338,7 +335,28 @@ body {
                     }
                 };
         }
-        i++;
+
+        for (count_for_click;count_for_click<ids.length;count_for_click++)
+        {
+
+            if(ids[count_for_click].length==0)
+            {
+                count_for_click++;
+                empty_lists++;
+                break;
+            }
+            data[count_for_click+1-empty_lists]['itemStyle']={
+                    normal: {
+                        color:'#3bda04',
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                };
+        }
+
         if (count_for_click==ids.length)
         {
             flag=0;
