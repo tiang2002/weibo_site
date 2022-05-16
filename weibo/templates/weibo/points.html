@@ -21,7 +21,7 @@ body {
   margin: 0;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
+  background-image: linear-gradient(45deg, #ffffff 14.7%, rgba(0, 0, 0, 0.46) 73%);
   background-size: 200% 200%;
   -webkit-animation: gradient 15s ease infinite;
           animation: gradient 15s ease infinite;
@@ -122,8 +122,9 @@ body {
 
 <!-- Main -->
 <main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;height: 100%">
-<div id="pointmap" style="height:930px;width:90%;left: 10% ">
+<div id="pointmap" style="height:99.9%;width:89%;left: 10%;position: relative;">
 </div>
+    <button id="button" style="left: 80%">show</button>
 </main>
 
 
@@ -135,13 +136,13 @@ body {
 <script>
 
     let point = echarts.init(document.getElementById('pointmap'));
-    const data = [
+    var data = [
         {
             name: "0",
             fixed: true,
             x: point.getWidth() / 2,
             y: point.getHeight() / 2,
-            symbolSize: 20,
+            symbolSize: 40,
             id: '0'
         }
     ];
@@ -159,13 +160,14 @@ body {
             {
                 type: 'graph',
                 layout: 'force',
-                animation: true,
+                animation: false,
                 data: data,
                 force: {
                     // initLayout: 'circular'
-                    // gravity: 0
-                    repulsion: 100,
-                    edgeLength: 5
+                    gravity:  0.1,
+                    repulsion: 1500,
+                    edgeLength: 50,
+                    layoutAnimation:false//加上后无动画效果
                 },
                 edges: edges
             }
@@ -181,12 +183,10 @@ body {
     let ids = {{ids|safe}};
     let relations = {{relations|safe}};
     ids =  Array.from(new Set(ids));;
-    let i = 0,j=0;
-    let colors=['#f80000','#f3e017','#1890FF'];
+    let  j=0;
+    // let color = 'rgb(239,50,70)';
     while(1) {
-        if (i > 2) {
-            i = 0;
-        }
+
         if (j == ids.length) {
             break;
         }
@@ -199,9 +199,10 @@ body {
             }
             data.push({
                 name: ids[j][0],
+                symbolSize: 20,
                 itemStyle: {
                     normal: {
-                        color: colors[i],
+                        color: 'rgb(255,255,255)',
                         label: {
                             color: '#000', //字的颜色
                             // borderColor: '#52ff18',  //拐点边框颜色
@@ -256,7 +257,7 @@ body {
         series: [
             {
                 // label: i,
-                focusNodeAdjacency: true,//加上后静止
+                // focusNodeAdjacency: true,
                 roam: true,
                 data: data,
                 edges: edges,
@@ -270,7 +271,7 @@ body {
                     //         // show: true  //设置这个就会把值显示在图表上
                     //     },
                         lineStyle: {
-                            color: '#9f07ff',
+                            // color: '#9f07ff',
                             width: 3
                         }
                     }
@@ -278,7 +279,98 @@ body {
             }
         ]
     })
+    var count_for_click = 0;
+    var empty_lists=0;
+    var color_count=0;
+    let button = document.getElementById('button');
 
+    String.prototype.format = function(opts) {//use 'my name is ${name}'.format({name:'lake'})
+    var data = Array.prototype.slice.call(arguments, 0),
+        toString = Object.prototype.toString;
+    if (data.length) {
+        data = data.length == 1 ?
+            (opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) : data;
+        return this.replace(/\$\{(.+?)\}/g, function(match, key) {
+            var replacer = data[key];
+            // chrome 下 typeof /a/ == 'function'
+
+            if ('[object Function]' == toString.call(replacer)) {
+                replacer = replacer(key);
+            }
+            return ('undefined' == typeof replacer ? '' : replacer);
+        });
+    }
+    return this;
+}//format方法的定义
+    let colors=[
+    '#c25ec8','#fd925f','#f80000',
+    '#fda15b','#f3e017','#ff7900',
+    '#f95ba2','#3a7cdc','#7760dd',
+    '#506fe3'];
+    var i =0;
+    let flag=1;
+    button.addEventListener("click", function (){
+        if(flag==0)
+        {
+            return ;
+        }
+
+        for (count_for_click;count_for_click<ids.length;count_for_click++)
+        {
+            if (i == colors.length)
+            {
+                i=0;
+            }
+            if(ids[count_for_click].length==0)
+            {
+                count_for_click++;
+                empty_lists++;
+                break;
+            }
+            data[count_for_click+1-empty_lists]['itemStyle']={
+                    normal: {
+                        color:colors[i],
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                };
+        }
+        i++;
+        if (count_for_click==ids.length)
+        {
+            flag=0;
+        }
+        point.setOption({
+
+        series: [
+            {
+                // label: i,
+                // focusNodeAdjacency: true,
+                roam: true,
+                data: data,
+                edges: edges,
+                tooltip: tooltip,
+                itemStyle: {
+                    normal: {
+                    //     color: '#1890FF',
+                    //     label: {
+                    //         color: '#000', //字的颜色
+                    //         borderColor: '#A618FF',  //拐点边框颜色
+                    //         // show: true  //设置这个就会把值显示在图表上
+                    //     },
+                        lineStyle: {
+                            // color: '#9f07ff',
+                            width: 3
+                        }
+                    }
+                },
+            }
+        ]
+    })
+    });
 </script>
 
 </body>
