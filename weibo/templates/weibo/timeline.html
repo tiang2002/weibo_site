@@ -33,7 +33,11 @@ body {
         {{css|safe}}
 
     </style>
-
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
 </head>
 <body>
 <!--<h1 class="heading">微博舆情监测与分析</h1>-->
@@ -314,7 +318,6 @@ body {
                          // color:,
                      }
                  }]
-
              }
         ,
                 {

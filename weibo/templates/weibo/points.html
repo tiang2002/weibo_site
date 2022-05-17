@@ -33,7 +33,133 @@ body {
         {{css|safe}}
 
     </style>
+<style>
+:root {
+  --height: 100px;
+  --width: 200px;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+    bottom: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  position: relative;
+  width: calc(0.8 * var(--width));
+  height: calc(0.7 * var(--height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  margin: 0 0.8rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0, 0.22, 0.3, 1);
+}
+.button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+.button span {
+  color: #fff;
+  font-size: 1rem;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.button._1 {
+  background: #2980b9;
+}
+.button._2 {
+  background: #8e44ad;
+}
+.button._3 {
+  background: #16a085;
+}
+.button._4 {
+  background: #e74c3c;
+}
+.button .back {
+  position: absolute;
+  width: 0;
+  height: 0;
+  filter: url(#filter);
+  border-radius: 50%;
+  z-index: 5;
+  transition: all 2.5s cubic-bezier(0.1, 0.22, 0.3, 1);
+}
+.button._1 .back {
+  left: -50%;
+  top: -50%;
+  background: #27ae60;
+}
+.button._2 .back {
+  right: -50%;
+  top: -50%;
+  background: #c0392b;
+}
+.button._3 .back {
+  left: -50%;
+  bottom: -50%;
+  background: #34495e;
+}
+.button._4 .back {
+  right: -50%;
+  bottom: -50%;
+  background: #2980b9;
+}
+.button:hover .back {
+  width: calc(2 * var(--width));
+  height: calc(2 * var(--height));
+}
+
+@media only screen and (max-width: 750px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .button {
+    margin: 0.8rem 0;
+  }
+}
+.support {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px;
+  display: flex;
+}
+
+a {
+  margin: 0 20px;
+  color: #fff;
+  font-size: 2rem;
+  transition: all 400ms ease;
+}
+
+a:hover {
+  color: #222;
+}
+</style>
+    <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
 </head>
 <body>
 <!--<h1 class="heading">微博舆情监测与分析</h1>-->
@@ -123,11 +249,23 @@ body {
 <main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;height: 100%">
 <div id="pointmap" style="height:99.9%;width:89%;left: 10%;position: relative;">
 </div>
-    <div style="bottom: 5%">
-        <button id="button1" style="">显示下一轮</button>
-    <button id="button2" style="">自动播放</button>
-    <button id="button3" style="">停止自动播放</button>
-    </div>
+    <div class="wrapper">
+	<div class="button _1" id="button1">
+		<span>显示下一轮</span><div class="back"></div>
+	</div>
+	<div class="button _2" id="button2">
+		<span>自动播放</span><div class="back"></div>
+	</div>
+	<div class="button _3" id="button3">
+		<span>停止自动播放</span><div class="back"></div>
+	</div>
+
+</div>
+<!--    <div style="bottom: 5%">-->
+<!--        <button id="button1" style="">显示下一轮</button>-->
+<!--    <button id="button2" style="">自动播放</button>-->
+<!--    <button id="button3" style="">停止自动播放</button>-->
+<!--    </div>-->
 
 </main>
 
@@ -406,7 +544,7 @@ body {
     button3.addEventListener('click',function ()
     {
         window.clearInterval(v);
-    })
+    });
 
 </script>
 
