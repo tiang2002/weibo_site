@@ -123,7 +123,12 @@ body {
 <main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;height: 100%">
 <div id="pointmap" style="height:99.9%;width:89%;left: 10%;position: relative;">
 </div>
-    <button id="button" style="left: 80%">show</button>
+    <div style="bottom: 5%">
+        <button id="button1" style="">显示下一轮</button>
+    <button id="button2" style="">自动播放</button>
+    <button id="button3" style="">停止自动播放</button>
+    </div>
+
 </main>
 
 
@@ -282,7 +287,9 @@ body {
     var count_for_click = 0;
     var empty_lists=0;
     var color_count=0;
-    let button = document.getElementById('button');
+    let button1 = document.getElementById('button1');
+    let button2 = document.getElementById('button2');
+    let button3 = document.getElementById('button3');
 
     String.prototype.format = function(opts) {//use 'my name is ${name}'.format({name:'lake'})
     var data = Array.prototype.slice.call(arguments, 0),
@@ -310,7 +317,7 @@ body {
     // var i =0;
     let flag=1;
     var former = 0;
-    button.addEventListener("click", function (){
+    function setcolor(){
         if(flag==0)
         {
             return ;
@@ -388,7 +395,19 @@ body {
             }
         ]
     })
+    };
+
+    button1.addEventListener("click", setcolor);
+    var v=0;
+    button2.addEventListener("click", function () {
+            v= window.setInterval('setcolor()',1000);
+
     });
+    button3.addEventListener('click',function ()
+    {
+        window.clearInterval(v);
+    })
+
 </script>
 
 </body>
