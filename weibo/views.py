@@ -52,6 +52,21 @@ def points(request):
     return render(request, 'weibo/points.html', locals())
 
 
+def timeline(request):
+    points = []
+    with open(PROJECT_ROOT + r'/weibo/timeline.csv', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for each in reader:
+            temp = []
+            effd = re.findall('(.*?[A-Za-z]{1}):', each[0])
+            if effd:
+                temp = effd[0].split(' ')
+                points.append(temp)
+    with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
+        css = file.read()
+    return render(request, 'weibo/timeline.html', locals())
+
+
 def pie(request):
     # get_pie_html()
 

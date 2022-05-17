@@ -20,7 +20,7 @@ body {
   margin: 0;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(45deg, #ffffff 14.7%, rgba(0, 0, 0, 0.46) 73%);
+  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
   background-size: 200% 200%;
   -webkit-animation: gradient 15s ease infinite;
           animation: gradient 15s ease infinite;
@@ -85,11 +85,11 @@ body {
             </a>
         </li>
         <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:timeline'%}">
                 <div class="navbar-item-inner-icon-wrapper flexbox">
                     <ion-icon name="pie-chart-outline"></ion-icon>
                 </div>
-                <span class="link-text">Dashboard</span>
+                <span class="link-text">时间线</span>
             </a>
         </li>
         <li class="navbar-item flexbox-left">
@@ -183,7 +183,7 @@ body {
     // let points = JSON.parse('{{points|safe}}');
     let ids = {{ids|safe}};
     let relations = {{relations|safe}};
-    ids =  Array.from(new Set(ids));;
+    ids =  Array.from(new Set(ids));
     let  j=0;
     // let color = 'rgb(239,50,70)';
     while(1) {

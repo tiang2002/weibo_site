@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="icon"
+          href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
+
+    <style>
+        html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(45deg, #3a7cdd 14.7%, rgb(245, 224, 17) 73%);
+  background-size: 200% 200%;
+  -webkit-animation: gradient 15s ease infinite;
+          animation: gradient 15s ease infinite;
+  display: flex;
+/*  justify-content: center;*/
+/*  align-items: center;*/
+  flex-direction: column;
+  /*padding: 32px;*/
+}
+        {{css|safe}}
+
+    </style>
+
+</head>
+<body>
+<!--<h1 class="heading">微博舆情监测与分析</h1>-->
+<!--<a href="pie/" class="input">展示饼图统计</a>-->
+<!--<div>-->
+
+<!--    <h2 class="pie_text">情感分析统计饼图</h2>-->
+<!--    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>-->
+<!--</div>-->
+<!--<div class="pleftbox2top" style="width: 500px;height: 400px">-->
+<!--    <h2 class="tith2">情感分析图</h2>-->
+<!--    <div id="pleftbox2top" class="pleftbox2topcont"></div>-->
+<!--</div>-->
+<!-- Navbar -->
+<nav id="navbar">
+    <ul class="navbar-items flexbox-col">
+        <li class="navbar-logo flexbox-left">
+            <a class="navbar-item-inner flexbox">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 1438.88 1819.54">
+                    <polygon points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"/>
+                    <polygon
+                            points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"/>
+                </svg>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:index'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="search-outline">
+                    </ion-icon>
+                </div>
+                <span class="link-text">主页面</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:chinamap'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="home-outline"></ion-icon>
+                </div>
+                <span class="link-text">中国地图</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:points'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="folder-open-outline"></ion-icon>
+                </div>
+                <span class="link-text">点线图</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:timeline'%}">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="pie-chart-outline"></ion-icon>
+                </div>
+                <span class="link-text">时间线</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="people-outline"></ion-icon>
+                </div>
+                <span class="link-text">Team</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                </div>
+                <span class="link-text">Support</span>
+            </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+                <div class="navbar-item-inner-icon-wrapper flexbox">
+                    <ion-icon name="settings-outline"></ion-icon>
+                </div>
+                <span class="link-text">Settings</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Main -->
+<main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;height: 100%">
+<div id="timeline" style="height:90%;width:89%;left: 10%;position: relative;">
+</div>
+</main>
+
+
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script>
+    let timeline = echarts.init(document.getElementById('timeline'));
+    var data =[];
+    let points = {{points|safe}};
+    let width = timeline.getWidth();
+    let height =timeline.getHeight();
+    let x_axis = 0.1;
+    let bias = 0.1;
+    var edges = [];
+    let i = 0;
+    let color = '';
+    let temp =  '';
+    for (each of points)
+    {
+        if(i%2==0) {
+            data.push({
+                name: each[2]+i,
+                fixed: true,
+                x: width * x_axis,
+                y: height / 4,
+                symbolSize: 30,
+                itemStyle: {
+                    normal: {
+                        color: '#f80000',
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                }
+
+
+            });
+            color = '#f80000';
+        }
+        else {
+            data.push({
+                name:  each[2]+i,
+                // value:each[3],
+                fixed: true,
+                x: width * x_axis,
+                y: height * 3 / 4,
+                symbolSize: 30,
+                itemStyle: {
+                    normal: {
+                        color: '#3a7cdd',
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                }
+
+            });
+            color = '#3a7cdd';
+        }
+        data.push({
+            name: each[0]+' '+each[1]+i,
+            fixed: true,
+            x: width*x_axis,
+            y: height / 2,
+            symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        color: color,
+                        label: {
+                            color: '#000', //字的颜色
+                            // borderColor: '#52ff18',  //拐点边框颜色
+                            // show: true  //设置这个就会把值显示在图表上
+                        }
+                    }
+                }
+        });
+        edges.push({
+            source:each[0]+' '+each[1]+i,
+            target:each[2]+i,
+        });
+        edges.push({
+            source:temp,
+            target:each[0]+' '+each[1]+i,
+        });
+        temp = each[0]+' '+each[1]+i;
+
+        x_axis+=bias;
+        i++;
+    }
+    let tooltip={//提示框组件
+            trigger: 'axis', //item数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+            // axisPointer: {
+            //     // 坐标轴指示器，坐标轴触发有效
+            //     // type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            // },
+            formatter: '热度：{c}', //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
+            // valueformatter:'value',
+        };
+    let option = {
+        baseOption: {
+                timeline: {
+                    data: ['2017', '2018',],
+                    // bottom:'0.5%',
+                    // axisType:'time',
+                    color:'#000',
+                    tooltip:'none',
+                    realtime: true,
+                    label:{
+                        color:'#000',
+                        fontSize:18,
+                    },
+                    lineStyle:{
+                        // color:'#000',
+                        width:5,
+                    },
+                    controlStyle:{
+                        color:'#000'
+                    },
+                    itemStyle:{
+                        // color:'#000'
+                    },
+                },
+                title: {
+                    subtext: '',
+                },
+
+                grid: {},
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['01:00','02:00','03:00','04:00'],
+                        style:{
+                            color:'#000'
+                        },
+                        axisLabel: {//y轴文字的配置
+                            textStyle: {
+                                color: "rgba(0,0,0,0.46)",//Y轴内容文字颜色
+                                fontSize:19,
+                            },
+                        },
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {//y轴文字的配置
+                            textStyle: {
+                                color: "rgba(0,0,0,0.46)",//Y轴内容文字颜色
+                                fontSize:19,
+                            },
+                        },
+
+                    }
+
+                ],
+                series: [
+                    {
+                        type:'line',
+                    }
+                ]
+            },
+
+
+         options:[
+
+             {
+                 visualMap: [
+                    {
+                      show: true,
+                      type: 'continuous',
+
+                    },
+                  ],
+
+                 tooltip: tooltip,
+                 series: [{
+
+                     type: 'line',
+                     data: [103, 123, 223, 54],
+                     areaStyle: {
+                         // color:,
+                     }
+                 }]
+
+             }
+        ,
+                {
+                    visualMap: [
+                    {
+                      show: true,
+                      type: 'continuous',
+
+                    },
+                  ],
+                 tooltip: tooltip,
+                 series: [{
+
+                     type: 'line',
+
+                     data: [13, 23, 22, 54],
+
+                     areaStyle: {
+                         // color:,
+                     }
+                 }]
+
+             },
+
+    ]
+    };
+    timeline.setOption(option);
+</script>
+
+
+</body>
+</html>

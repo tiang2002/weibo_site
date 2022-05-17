@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('chinamap/', views.china, name='chinamap'),
     path('points/', views.points, name='points'),
+    path('timeline/', views.timeline, name='timeline'),
 
     # path('pie/', views.pie, name='pie'),
 
