@@ -8,6 +8,7 @@
     <link rel="icon"
           href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style>
         html {
   width: 100%;
@@ -20,7 +21,7 @@ body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
   background-size: 200% 200%;
   -webkit-animation: gradient 15s ease infinite;
@@ -120,9 +121,9 @@ body {
     </ul>
 </nav>
 
-<main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;">
-<div id="chinamap" style="height: 700px;width:1000px;left: 5% ">
-</div>
+<main id="main" class="flexbox-col" style="height:100%;width:92%;">
+            <div id="chinamap" style="height: 100%; width: 100%;"></div>
+            <div id="area" style="height: 100%;width: 100%"></div>
 </main>
 <!--<div id="area" style="height: 500px">-->
 <!--</div>-->
@@ -341,41 +342,6 @@ body {
             },
             formatter: '{b}' //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
         },
-        // visualMap: {           //地图图例
-        //     show: true,
-        //     left: 26,
-        //     bottom: 40,
-        //     showLabel: true,
-        // pieces: [        //根据数据大小，各省显示不同颜色
-        //     {
-        //         gte: 100,
-        //         label: ">= 1000",
-        //         color: "#1f307b"
-        //     },
-        //     {
-        //         gte: 500,
-        //         lt: 999,
-        //         label: "500 - 999",
-        //         color: "#3c57ce"
-        //     },
-        //     {
-        //         gte: 100,
-        //         lt: 499,
-        //         label: "100 - 499",
-        //         color: "#6f83db"
-        //     },
-        //     {
-        //         gte: 10,
-        //         lt: 99,
-        //         label: "10 - 99",
-        //         color: "#9face7"
-        //     },
-        //     {
-        //         lt: 10,
-        //         label: '<10',
-        //         color: "#bcc5ee"
-        //     }
-        // ],
 
         geo: {                 //中国地图设置
             map: "china",
@@ -387,7 +353,7 @@ body {
             // top: 120,
             label: {
                 normal: {
-                    show: true,
+                    // show: true,
                     fontSize: "14",
                     color: "rgba(0,0,0,0.7)"
                 }
@@ -413,13 +379,55 @@ body {
             }
         ]
     };
-    // mapchart.on('click', function (params) {
-    //     if (params['name']==='西藏')
-    //     let area = echarts.init(document.getElementById('area'));
-    //     let option={
-    //
-    //     }
-    // });
+    mapchart.on('click', function () {
+        let area = echarts.init(document.getElementById('area'));
+        let option={
+        tooltip: {
+    trigger: 'item',
+            formatter:function(params){ //标签内容
+                      return  params.value+'%'
+                    },
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      // name: '',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+
+          fontSize: '40',
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: (100*Math.random()).toString().slice(0,6), name: '积极' },
+        { value: (100*Math.random()).toString().slice(0,6), name: '中性' },
+        { value: (100*Math.random()).toString().slice(0,6), name: '消极' },
+      ]
+    }
+  ]
+        };
+        area.setOption(option);
+    });
     mapchart.setOption(option);
 </script>
 </body>
