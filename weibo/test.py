@@ -11,13 +11,15 @@ import time
 
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
-points = []
-with open(PROJECT_ROOT + r'/weibo/timeline.csv', encoding='utf-8') as file:
+comments = {}
+with open(PROJECT_ROOT + r'/weibo/weibo.csv', encoding='utf-8') as file:
     reader = csv.reader(file)
     for each in reader:
-        temp = []
-        words = re.findall('[:]{}:(.*?)', each[0])
-        if words:
-            points.append(words[0])
+        if len(each) > 1:
+            each[0] = each[0].split(':')[0]
+            try:
+                comments[each[0]].append([each[1],each[2]])
+            except:
+                comments[each[0]] = [[each[1],each[2]]]
 
-print(points)
+print(comments)

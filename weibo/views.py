@@ -57,11 +57,25 @@ def timeline(request):
     with open(PROJECT_ROOT + r'/weibo/timeline.csv', encoding='utf-8') as file:
         reader = csv.reader(file)
         for each in reader:
-            temp = []
-            effd = re.findall('(.*?[A-Za-z]{1}):', each[0])
-            if effd:
-                temp = effd[0].split(' ')
-                points.append(temp)
+            points.append(each)
+    heat = []
+    with open(PROJECT_ROOT + r'/weibo/heat.csv', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for each in reader:
+            if len(each) > 1:
+                heat.append(each)
+    comments = []
+    with open(PROJECT_ROOT + r'/weibo/weibo.csv', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        # for each in reader:
+        #     if len(each) > 1:
+        #         each[0] = each[0].split(':')[0]
+        #         try:
+        #             comments[each[0]].append([each[1],each[2]])
+        #         except:
+        #             comments[each[0]] = [[each[1],each[2]]]
+        for each in reader:
+            comments.append(each)
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
         css = file.read()
     return render(request, 'weibo/timeline.html', locals())
