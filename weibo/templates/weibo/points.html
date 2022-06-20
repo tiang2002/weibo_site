@@ -192,7 +192,7 @@ a:hover {
                     <ion-icon name="search-outline">
                     </ion-icon>
                 </div>
-                <span class="link-text">主页面</span>
+                <span class="link-text">主页</span>
             </a>
         </li>
         <li class="navbar-item flexbox-left">
@@ -200,7 +200,7 @@ a:hover {
                 <div class="navbar-item-inner-icon-wrapper flexbox">
                     <ion-icon name="home-outline"></ion-icon>
                 </div>
-                <span class="link-text">中国地图</span>
+                <span class="link-text">真实性分析</span>
             </a>
         </li>
         <li class="navbar-item flexbox-left">
@@ -208,7 +208,7 @@ a:hover {
                 <div class="navbar-item-inner-icon-wrapper flexbox">
                     <ion-icon name="folder-open-outline"></ion-icon>
                 </div>
-                <span class="link-text">点线图</span>
+                <span class="link-text">传播预测</span>
             </a>
         </li>
         <li class="navbar-item flexbox-left">
@@ -216,33 +216,10 @@ a:hover {
                 <div class="navbar-item-inner-icon-wrapper flexbox">
                     <ion-icon name="pie-chart-outline"></ion-icon>
                 </div>
-                <span class="link-text">时间线</span>
+                <span class="link-text">谣言溯源</span>
             </a>
         </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="people-outline"></ion-icon>
-                </div>
-                <span class="link-text">Team</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                </div>
-                <span class="link-text">Support</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="settings-outline"></ion-icon>
-                </div>
-                <span class="link-text">Settings</span>
-            </a>
-        </li>
+
     </ul>
 </nav>
 
@@ -329,21 +306,11 @@ a:hover {
     let relations = {{relations|safe}};
     ids =  Array.from(new Set(ids));
     let  j=0;
-    // let color = 'rgb(239,50,70)';
-    while(1) {
-
-        if (j == ids.length) {
-            break;
-        }
-
-        for (; j < ids.length; j++) {
-            if(ids[j].length==0)
-            {
-                j++;
-                break;
-            }
-            data.push({
-                name: ids[j][0],
+    let points = {{points|safe}};
+    for (each of points)
+    {
+        data.push({
+                name: each[0],
                 symbolSize: 20,
                 itemStyle: {
                     normal: {
@@ -356,8 +323,37 @@ a:hover {
                     }
                 }
             });
-        }
     }
+
+    // let color = 'rgb(239,50,70)';
+    // while(1) {
+    //
+    //     if (j == ids.length) {
+    //         break;
+    //     }
+    //
+    //     for (; j < ids.length; j++) {
+    //         if(ids[j].length==0)
+    //         {
+    //             j++;
+    //             break;
+    //         }
+    //         data.push({
+    //             name: ids[j][0],
+    //             symbolSize: 20,
+    //             itemStyle: {
+    //                 normal: {
+    //                     color: '#808080',
+    //                     label: {
+    //                         color: '#000', //字的颜色
+    //                         // borderColor: '#52ff18',  //拐点边框颜色
+    //                         // show: true  //设置这个就会把值显示在图表上
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
     // for(let i of ids)
     // {
     //     data.push({name:i,});

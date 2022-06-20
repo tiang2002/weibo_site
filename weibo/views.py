@@ -37,10 +37,15 @@ def china(request):
 
 def points(request):
     ids = []
-    with open(PROJECT_ROOT + r'/weibo/each_round_infected_round.csv') as file:
+    with open(PROJECT_ROOT + r'/weibo/each_round_infected.csv') as file:
         reader = csv.reader(file)
         for each in reader:
             ids.append(each)
+    points = []
+    with open(PROJECT_ROOT + r'/weibo/all_id_list.csv') as file:
+        reader = csv.reader(file)
+        for each in reader:
+            points.append(each)
     relations = []
     with open(PROJECT_ROOT + r'/weibo/weibo_forward_list_uid.csv') as file:
         reader = csv.reader(file)
