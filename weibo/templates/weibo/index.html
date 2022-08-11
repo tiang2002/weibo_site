@@ -1,394 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+{% extends 'base_generic.html' %}
 
-    <link rel="icon"
-          href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
-
-    <style>{{css|safe}}</style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-
-
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
-* {
-  box-sizing: border-box;
-}
-
-html {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-  width: 100%;
-  height: 100vh;
-  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
-  background-size: 200% 200%;
-  -webkit-animation: gradient 15s ease infinite;
-          animation: gradient 15s ease infinite;
-  display: flex;
-/*  justify-content: center;*/
-/*  align-items: center;*/
-  flex-direction: column;
-  /*padding: 32px;*/
-}
-
-@-webkit-keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-h1 {
-  margin: 0;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 32px;
-  color: #26384E;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
-  transition-delay: 0.2s;
-  overflow: hidden;
-  max-width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-@media screen and (max-width: 520px) {
-  h1 {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
-
-p {
-  font-size: 16px;
-  line-height: 24px;
-  color: #889DB8;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
-  transition-delay: 0.3s;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-@media screen and (max-width: 520px) {
-  p {
-    font-size: 14px;
-    line-height: 20px;
-  }
-}
-
-.swiper-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  z-index: 1;
-  position: relative;
-}
-
-.swiper-container {
-  background: linear-gradient(270deg, #f7f9ff 0%, #f2f6ff 100%);
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  width: 90%;
-  position: relative;
-  /*max-width: 620px;*/
-  height: 100%;
-  /*max-height: 120px;*/
-  /*border-radius: 10px;*/
-    left: 10%;
-}
-
-.slider-image-wrapper {
-  /*height: 400px;*/
-  /*      float: bottom;*/
-  /*  max-height: 811px;*/
-
-
-  height: 100%;
-  width: 100%;
-    position: relative;
-  overflow: hidden;
-}
-
-.slider-item {
-  width: 90%;
-  height: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-    position:relative ;
-
-  flex-shrink: 0;
-  opacity: 0;
-  background: linear-gradient(270deg, #f7f9ff 0%, #f2f6ff 100%);
-  /*cursor: -webkit-grab;*/
-  cursor: grab;
-}
-.slider-item-content {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  transition: 0.4s;
-}
-.slider-item-content > * {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.swiper-slide-active .slider-item-content > * {
-  transform: translateY(0px);
-  opacity: 1;
-}
-
-.slider-image {
-  width: 100%;
-  height: 100%;
-  /*-o-object-fit: cover;*/
-  /*   object-fit: cover;*/
-  transition: 0.2s;
-}
-
-.swiper-pagination {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  transform: translatex(-50%);
-  z-index: 1;
-  width: auto !important;
-}
-
-.swiper-pagination-bullet {
-  /*border-radius: 0;*/
-  /*width: 8px;*/
-  /*height: 8px;*/
-  /*border-radius: 50%;*/
-  /*line-height: 80px;*/
-  font-size: 12px;
-  opacity: 1;
-  background: rgba(255, 185, 0, 0.3);
-  display: inline-block;
-  margin-right: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.swiper-pagination-bullet-active {
-  background: #FFB200;
-  width: 20px;
-  border-radius: 10px;
-}
-
-
-
-
-
-
-.socials .social-link {
-  display: inline-block;
-  margin-left: 8px;
-  color: #fff;
-}
-
-@media screen and (max-width: 520px) {
-  .swiper-button-next:hover:before,
-.swiper-button-prev:hover:before {
-    display: none;
-  }
-}
-</style>
-
-  <script>
-  window.console = window.console || function(t) {};
-  if (document.location.search.match(/type=embed/gi)) {
-    window.parent.postMessage("resize", "*");
-  }
-</script>
-</head>
-<body>
-<!--<h1 class="heading">微博舆情监测与分析</h1>-->
-<!--<a href="pie/" class="input">展示饼图统计</a>-->
-<!--<div>-->
-
-<!--    <h2 class="pie_text">情感分析统计饼图</h2>-->
-<!--    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>-->
-<!--</div>-->
-<!--<div class="pleftbox2top" style="width: 500px;height: 400px">-->
-<!--    <h2 class="tith2">情感分析图</h2>-->
-<!--    <div id="pleftbox2top" class="pleftbox2topcont"></div>-->
-<!--</div>-->
-<!-- Navbar -->
-
-<nav id="navbar">
-    <ul class="navbar-items flexbox-col">
-        <li class="navbar-logo flexbox-left">
-            <a class="navbar-item-inner flexbox">
-                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 1438.88 1819.54">
-                    <polygon points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"/>
-                    <polygon
-                            points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"/>
-                </svg>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:index'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="search-outline">
-                    </ion-icon>
+{% block content %}
+    <style>
+        .carousel {
+            height: 100vh;
+        }
+        .carousel-inner, .carousel-item {
+            height:100%;
+        }
+        .carousel-item {
+            background-color: rgba(255,255,255,0.5);
+        }
+        .carousel-item img {
+            height:calc(100% - 200px); object-fit: cover; object-position: center;
+        }
+    </style>
+    <div class="col p-0">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://s1.ax1x.com/2022/05/19/OqrJA0.png" class="d-block w-100" alt="...">
+                    <div class="row d-flex p-5" style="height: 200px">
+                        <h1 class="h1">Weiblock</h1>
+                        <p class="h4 text-muted">基于大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
+                    </div>
                 </div>
-                <span class="link-text">主页面</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:chinamap'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="home-outline"></ion-icon>
+                <div class="carousel-item">
+                    <img src="https://s1.ax1x.com/2022/05/19/OqynyQ.png" class="d-block w-100" alt="...">
+                    <div class="row d-flex p-5" style="height: 200px">
+                        <h1 class="h1">Weiblock</h1>
+                        <p class="h4 text-muted">基于大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
+                    </div>
                 </div>
-                <span class="link-text">真实性分析</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:points'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="folder-open-outline"></ion-icon>
+                <div class="carousel-item">
+                    <img src="https://s1.ax1x.com/2022/05/19/OqrJA0.png" class="d-block w-100" alt="...">
+                    <div class="row d-flex p-5" style="height: 200px">
+                        <h1 class="h1">Weiblock</h1>
+                        <p class="h4 text-muted">基于大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
+                    </div>
                 </div>
-                <span class="link-text">传播预测</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:timeline'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="pie-chart-outline"></ion-icon>
-                </div>
-                <span class="link-text">谣言溯源</span>
-            </a>
-        </li>
-
-    </ul>
-</nav>
-
-<!-- Main -->
-<main id="main" class="flexbox-col" style="top:20px;align-items: flex-start;">
-<!--    <h2>微博舆情检测与分析</h2>-->
-    <div class="swiper-container swiper-container-fade swiper-container-initialized swiper-container-horizontal">
-  <div class="swiper-wrapper" id="swiper-wrapper-e2b66e3d5a3f8705" aria-live="polite" style="transition-duration: 0ms;"><div class="slider-item swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="3" role="group" aria-label="1 / 6" style="width: 420px; transition-duration: 0ms; opacity: 1; transform: translate3d(0px, 0px, 0px);">
-      <div class="slider-image-wrapper">
-        <img class="slider-image" src="https://s1.ax1x.com/2022/05/19/OqrJA0.png" alt="SliderImg">
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-      <div class="slider-item-content">
-        <h1>Walking On a Dream</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>
-      </div>
     </div>
-    <div class="slider-item swiper-slide swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="2 / 6" style="width: 420px; transition-duration: 0ms; opacity: 0; transform: translate3d(-420px, 0px, 0px);">
-      <div class="slider-image-wrapper">
-        <img class="slider-image" src="https://s1.ax1x.com/2022/05/19/OqrJA0.png" alt="SliderImg">
-        </div>
-      <div class="slider-item-content">
-        <h1>Weiblock</h1>
-        <p>基子大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
-      </div>
-    </div>
-    <div class="slider-item swiper-slide" data-swiper-slide-index="1" role="group" aria-label="3 / 6" style="width: 420px; transition-duration: 0ms; opacity: 0; transform: translate3d(-840px, 0px, 0px);">
-      <div class="slider-image-wrapper">
-        <img class="slider-image" src="https://s1.ax1x.com/2022/05/19/OqynyQ.png" alt="SliderImg">
-        </div>
-      <div class="slider-item-content">
-        <h1>Weiblock</h1>
-        <p>基子大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
-      </div>
-    </div>
-    <div class="slider-item swiper-slide" data-swiper-slide-index="2" role="group" aria-label="4 / 6" style="width: 420px; transition-duration: 0ms; opacity: 0; transform: translate3d(-1260px, 0px, 0px);">
-      <div class="slider-image-wrapper">
-        <img class="slider-image" src="https://s1.ax1x.com/2022/05/19/OqyeSS.png" alt="SliderImg">
-        </div>
-      <div class="slider-item-content">
-       <h1>Weiblock</h1>
-        <p>基子大数据和神经网络的微博恶意信息鉴别,阻断和溯源一体化系统。</p>
-      </div>
-    </div>
-<!--    <div class="slider-item swiper-slide swiper-slide-duplicate-active" data-swiper-slide-index="3" role="group" aria-label="5 / 6" style="width: 420px; transition-duration: 0ms; opacity: 0; transform: translate3d(-1680px, 0px, 0px);">-->
-<!--      <div class="slider-image-wrapper">-->
-<!--        <img class="slider-image" src="" alt="SliderImg">-->
-<!--        </div>-->
-<!--      <div class="slider-item-content">-->
-<!--        <h1>Walking On a Dream</h1>-->
-<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>-->
-<!--      </div>-->
-    </div>
-<!--  <div class="slider-item swiper-slide swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="0" role="group" aria-label="6 / 6" style="width: 420px; transition-duration: 0ms; opacity: 0; transform: translate3d(-2100px, 0px, 0px);">-->
-<!--      <div class="slider-image-wrapper">-->
-<!--        <img class="slider-image" src="" alt="SliderImg">-->
-<!--        </div>-->
-<!--      <div class="slider-item-content">-->
-<!--        <h1>Postcards From Italy</h1>-->
-<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>-->
-<!--      </div>-->
-<!--    </div>-->
-    </div>
-<!--  <div class="slider-buttons">-->
-<!--      <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide" aria-controls="swiper-wrapper-e2b66e3d5a3f8705">Prev</button>-->
-<!--      <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-e2b66e3d5a3f8705">Next</button>-->
-<!--  </div>-->
-
-  <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-bullets-dynamic" style="width: 140px;"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1" style="left: -42px;"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2" style="left: -42px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active-prev" tabindex="0" role="button" aria-label="Go to slide 3" style="left: -42px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active swiper-pagination-bullet-active-main" tabindex="0" role="button" aria-label="Go to slide 4" style="left: -42px;"></span></div>
-<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-</main>
-    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js"></script>
-<script id="rendered-js">
-var swiper = new Swiper('.swiper-container', {
-  slidesPerView: 1,
-  spaceBetween: 20,
-  effect: 'fade',
-  loop: true,
-  speed: 300,
-  mousewheel: {
-    invert: false },
-
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-    dynamicBullets: true },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev' } });
-//# sourceURL=pen.js
-    </script>
-</body>
-</html>
+{% endblock %}

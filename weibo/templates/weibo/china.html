@@ -1,110 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <link rel="icon"
-          href="https://i0.hdslb.com/bfs/face/362805e8573cb396abada203596e80aab983f406.jpg@160w_160h_1c_1s.webp">
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        html {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(45deg, #ffa600 14.7%, #ff6361 73%);
-  background-size: 200% 200%;
-  -webkit-animation: gradient 15s ease infinite;
-          animation: gradient 15s ease infinite;
-  display: flex;
-/*  justify-content: center;*/
-/*  align-items: center;*/
-  flex-direction: column;
-  /*padding: 32px;*/
-}
-        {{css|safe}}
-
-    </style>
-
-</head>
-<body>
-<!--<h1 class="heading">微博舆情监测与分析</h1>-->
-<!--<a href="pie/" class="input">展示饼图统计</a>-->
-<!--<div>-->
-
-<!--    <h2 class="pie_text">情感分析统计饼图</h2>-->
-<!--    <img src="https://s1.ax1x.com/2022/04/09/LiGrGT.png" alt="LiGrGT.png" class="pie"/>-->
-<!--</div>-->
-<!--<div class="pleftbox2top" style="width: 500px;height: 400px">-->
-<!--    <h2 class="tith2">情感分析图</h2>-->
-<!--    <div id="pleftbox2top" class="pleftbox2topcont"></div>-->
-<!--</div>-->
-<!-- Navbar -->
-<nav id="navbar">
-    <ul class="navbar-items flexbox-col">
-        <li class="navbar-logo flexbox-left">
-            <a class="navbar-item-inner flexbox">
-                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 1438.88 1819.54">
-                    <polygon points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"/>
-                    <polygon
-                            points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"/>
-                </svg>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:index'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="search-outline">
-                    </ion-icon>
-                </div>
-                <span class="link-text">主页面</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:chinamap'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="home-outline"></ion-icon>
-                </div>
-                <span class="link-text">真实性分析</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:points'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="folder-open-outline"></ion-icon>
-                </div>
-                <span class="link-text">传播预测</span>
-            </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-            <a class="navbar-item-inner flexbox-left" href="{%url 'weibo:timeline'%}">
-                <div class="navbar-item-inner-icon-wrapper flexbox">
-                    <ion-icon name="pie-chart-outline"></ion-icon>
-                </div>
-                <span class="link-text">谣言溯源</span>
-            </a>
-        </li>
-
-    </ul>
-</nav>
-
-<main id="main" class="flexbox-col" style="height:100%;width:92%;">
-            <div id="chinamap" style="height: 100%; width: 100%;"></div>
-            <div id="area" style="height: 100%;width: 100%"></div>
-</main>
-<!--<div id="area" style="height: 500px">-->
-<!--</div>-->
-
+{% extends 'base_generic.html' %}
+{% block content %}
+<div class="col d-flex justify-content-center">
+    <div class="row my-auto shadow-lg rounded border" style="height: 80%">
+        <div id="chinamap" style="width: 1300px;background-color: rgba(255,255,255,0.5) ;"></div>
+        <div id="area" style="width: 400px; background-color: rgba(238,238,238,1);"></div>
+    </div>
+</div>
 
 <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
@@ -407,5 +308,4 @@ body {
     });
     mapchart.setOption(option);
 </script>
-</body>
-</html>
+{% endblock %}
