@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .pie import get_pie_html
 import re
 import os, csv
@@ -27,7 +28,7 @@ def index(request):
 
     return render(request, 'weibo/index.html', locals())
 
-
+@login_required
 def china(request):
     points = [[0, 1], [1, 2], [3, 1]]
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
@@ -35,6 +36,7 @@ def china(request):
     return render(request, 'weibo/china.html', locals())
 
 
+@login_required
 def points(request):
     ids = []
     with open(PROJECT_ROOT + r'/weibo/each_round_infected.csv') as file:
@@ -57,6 +59,7 @@ def points(request):
     return render(request, 'weibo/points.html', locals())
 
 
+@login_required
 def timeline(request):
     points = []
     with open(PROJECT_ROOT + r'/weibo/timeline.csv', encoding='utf-8') as file:
@@ -84,9 +87,3 @@ def timeline(request):
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
         css = file.read()
     return render(request, 'weibo/timeline.html', locals())
-
-
-def pie(request):
-    # get_pie_html()
-
-    return render(request, 'weibo/pic.html')
