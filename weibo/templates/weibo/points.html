@@ -130,24 +130,7 @@
         let format_for_ids = {};
         let points = {{points|safe}};
 
-        for (each in ids)
-        {
-            if (ids[each].length != 0) {
-                if(ids[each][0] === center_point)
-                {
-                    format_for_ids[Number(each)+1] = 0;
-                    continue;
-                }
-                let i = 0;
-                for (i in points)
-                {
-                    if (points[i][0] === ids[Number(each)][0])
-                        break;
-                }
-                format_for_ids[Number(each)+1] = Number(i);
-            }
-        }
-        console.log(format_for_ids);
+
         for (each of points)
         {
             if (each[0] != center_point)
@@ -176,6 +159,24 @@
             // });
             // }
         }
+        for (each in ids)
+        {
+            if (ids[each].length != 0) {
+                if(ids[each][0] === center_point)
+                {
+                    format_for_ids[Number(each)] = 0;
+                    continue;
+                }
+                let i = 0;
+                for (i in data)
+                {
+                    if (data[i]['name'] === ids[Number(each)][0])
+                        break;
+                }
+                format_for_ids[Number(each)] = Number(i);
+            }
+        }
+        console.log(format_for_ids);
 
         // let color = 'rgb(239,50,70)';
         // while(1) {
@@ -337,7 +338,7 @@
                 if(ids[count_for_click].length==0)
                 {
                     count_for_click++;
-                    empty_lists++;
+                    // empty_lists++;
                     break;
                 }
                 temp++;
