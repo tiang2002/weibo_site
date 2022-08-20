@@ -87,3 +87,14 @@ def timeline(request):
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
         css = file.read()
     return render(request, 'weibo/timeline.html', locals())
+
+
+@login_required
+def rumor_detect(request):
+    keyword = request.GET.get('q')
+    prediction = 0.13
+    context = {
+        "keyword": keyword,
+        "prediction": prediction * 100
+    }
+    return render(request, 'weibo/rumor.html', context=context)
