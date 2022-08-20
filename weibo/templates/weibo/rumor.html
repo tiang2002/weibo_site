@@ -1,0 +1,89 @@
+{% extends "base_generic.html" %}
+{% block script %}
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="col p-5">
+        <div class="row d-flex align-items-end p-5" style="height: 300px;">
+            <h1 class="text-center">
+                Weiblock Search
+            </h1>
+        </div>
+        <div class="row mb-5">
+            <form action="" method="get">
+                <div class="input-group justify-content-center">
+                    <div>
+                        <input type="text" class="form-control" id="floatingInputGroup1" placeholder="搜索" name="q" {% if keyword %}value="{{ keyword }}"{% endif %}>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% if keyword %}
+            <div class="row d-flex justify-content-center">
+                <div id="main" style="width: 1000px; height:100px"></div>
+            </div>
+        {% endif %}
+    </div>
+    <script type="text/javascript">
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        const data = [{{ prediction }}];
+        option = {
+            xAxis: {
+                max: 100
+            },
+            yAxis: {
+                type: 'category',
+                axisLabel: false,
+                inverse: true,
+                animationDuration: 300,
+                animationDurationUpdate: 300,
+                max: 0 // only the largest 3 bars will be displayed
+            },
+            series: [
+                {
+                    realtimeSort: true,
+                    name: '可信度',
+                    type: 'bar',
+                    data: data,
+                    label: {
+                        show: false,
+                        position: 'right',
+                        valueAnimation: true
+                    }
+                }
+            ],
+            legend: {
+                show: true
+            },
+            animationDuration: 100,
+            animationDurationUpdate: 300,
+            animationEasing: 'linear',
+            animationEasingUpdate: 'linear'
+        };
+        function run() {
+            myChart.setOption({
+                series: [
+                    {
+                        type: 'bar',
+                        data
+                    }
+                ]
+            });
+        }
+        setTimeout(function () {
+            run();
+        }, 0);
+        setInterval(function () {
+            run();
+        }, 300);
+
+        option && myChart.setOption(option);
+    </script>
+{% endblock %}
