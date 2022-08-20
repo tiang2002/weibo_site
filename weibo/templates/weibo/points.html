@@ -79,7 +79,7 @@
         let point = echarts.init(document.getElementById('pointmap'));
         var data = [
             {
-                name: "0",
+                name: '0',
                 fixed: true,
                 x: point.getWidth() / 2,
                 y: point.getHeight() / 2,
@@ -123,9 +123,9 @@
         // let points = JSON.parse('{{points|safe}}');
         let ids = {{ids|safe}};
         let relations = {{relations|safe}};
+        let points = {{points|safe}};
         ids =  Array.from(new Set(ids));
         let  j=0;
-        let points = {{points|safe}};
         for (each of points)
         {
             data.push({
@@ -177,7 +177,7 @@
         // {
         //     data.push({name:i,});
         // }
-        console.log(data);
+        console.log(relations.length);
         for(let i of relations)
         {
             let source = i[0];

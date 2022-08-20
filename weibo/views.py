@@ -51,7 +51,7 @@ def points(request):
     relations = []
     with open(PROJECT_ROOT + r'/weibo/weibo_forward_list_uid.csv') as file:
         reader = csv.reader(file)
-        reader.__next__()
+        # reader.__next__()
         for each in reader:
             relations.append(each)
     with open(PROJECT_ROOT + r'/weibo/templates/weibo/css/weibo_site.css', 'r', encoding='utf-8') as file:
