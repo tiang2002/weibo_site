@@ -77,16 +77,18 @@
     <script>
 
         let point = echarts.init(document.getElementById('pointmap'));
+        let center_point = '2537869260';
         var data = [
             {
-                name: '2537869260',
+                name: center_point,
                 fixed: true,
                 x: point.getWidth() / 2,
                 y: point.getHeight() / 2,
                 symbolSize: 40,
-                id: '2537869260',
+                id: center_point,
             }
         ];
+        // var data=[];
         const edges = [];
         option = {
             tooltip: {//提示框组件
@@ -125,10 +127,30 @@
         let relations = {{relations|safe}};
         ids =  Array.from(new Set(ids));
         let  j=0;
+        let format_for_ids = {};
         let points = {{points|safe}};
+
+        for (each in ids)
+        {
+            if (ids[each].length != 0) {
+                if(ids[each][0] === center_point)
+                {
+                    format_for_ids[Number(each)+1] = 0;
+                    continue;
+                }
+                let i = 0;
+                for (i in points)
+                {
+                    if (points[i][0] === ids[Number(each)][0])
+                        break;
+                }
+                format_for_ids[Number(each)+1] = Number(i);
+            }
+        }
+        console.log(format_for_ids);
         for (each of points)
         {
-            if (each[0] != '2537869260')
+            if (each[0] != center_point)
                 data.push({
                     name: each[0],
                     symbolSize: 20,
@@ -143,6 +165,16 @@
                         }
                     }
                 });
+            // else{
+            //     data.push({
+            //     name: '2537869260',
+            //     fixed: true,
+            //     x: point.getWidth() / 2,
+            //     y: point.getHeight() / 2,
+            //     symbolSize: 40,
+            //     id: '2537869260',
+            // });
+            // }
         }
 
         // let color = 'rgb(239,50,70)';
@@ -286,18 +318,19 @@
                     former++;
                     break;
                 }
-                data[former+1-empty_lists]['itemStyle']={
-                    normal: {
-                        color:'#3a7cdd',
-                        label: {
-                            color: '#000', //字的颜色
-                            // borderColor: '#52ff18',  //拐点边框颜色
-                            // show: true  //设置这个就会把值显示在图表上
+                if (format_for_ids[former])
+                    data[format_for_ids[former]]['itemStyle']={
+                        normal: {
+                            color:'#3a7cdd',
+                            label: {
+                                color: '#000', //字的颜色
+                                // borderColor: '#52ff18',  //拐点边框颜色
+                                // show: true  //设置这个就会把值显示在图表上
+                            }
                         }
-                    }
-                };
+                    };
             }
-
+            let temp = 0;
             for (count_for_click;count_for_click<ids.length;count_for_click++)
             {
 
@@ -307,49 +340,54 @@
                     empty_lists++;
                     break;
                 }
-                data[count_for_click+1-empty_lists]['itemStyle']={
-                    normal: {
-                        color:'#f80000',
-                        label: {
-                            color: '#000', //字的颜色
-                            // borderColor: '#52ff18',  //拐点边框颜色
-                            // show: true  //设置这个就会把值显示在图表上
+                temp++;
+                console.log(count_for_click)
+                if (format_for_ids[count_for_click])
+                    data[format_for_ids[count_for_click]]['itemStyle']={
+                        normal: {
+                            color:'#f80000',
+                            label: {
+                                color: '#000', //字的颜色
+                                // borderColor: '#52ff18',  //拐点边框颜色
+                                // show: true  //设置这个就会把值显示在图表上
+                            }
                         }
-                    }
-                };
+                    };
             }
 
             if (count_for_click==ids.length)
             {
                 flag=0;
             }
-            point.setOption({
+            if (temp) {
+                point.setOption({
 
-                series: [
-                    {
-                        // label: i,
-                        // focusNodeAdjacency: true,
-                        roam: true,
-                        data: data,
-                        edges: edges,
-                        tooltip: tooltip,
-                        itemStyle: {
-                            normal: {
-                                //     color: '#1890FF',
-                                //     label: {
-                                //         color: '#000', //字的颜色
-                                //         borderColor: '#A618FF',  //拐点边框颜色
-                                //         // show: true  //设置这个就会把值显示在图表上
-                                //     },
-                                lineStyle: {
-                                    // color: '#9f07ff',
-                                    width: 3
+                    series: [
+                        {
+                            // label: i,
+                            // focusNodeAdjacency: true,
+                            roam: true,
+                            data: data,
+                            edges: edges,
+                            tooltip: tooltip,
+                            itemStyle: {
+                                normal: {
+                                    //     color: '#1890FF',
+                                    //     label: {
+                                    //         color: '#000', //字的颜色
+                                    //         borderColor: '#A618FF',  //拐点边框颜色
+                                    //         // show: true  //设置这个就会把值显示在图表上
+                                    //     },
+                                    lineStyle: {
+                                        // color: '#9f07ff',
+                                        width: 3
+                                    }
                                 }
-                            }
-                        },
-                    }
-                ]
-            })
+                            },
+                        }
+                    ]
+                })
+            }
         };
 
         button1.addEventListener("click", setcolor);
