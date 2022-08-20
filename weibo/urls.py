@@ -10,6 +10,7 @@ urlpatterns = [
     path('chinamap/', views.china, name='chinamap'),
     path('points/', views.points, name='points'),
     path('timeline/', views.timeline, name='timeline'),
+    path('rumor/', views.rumor_detect, name='rumor'),
 
     # path('pie/', views.pie, name='pie'),
 

@@ -94,6 +94,7 @@
 
     <meta charset="UTF-8">
     {% block title %}<title>Weiblock</title>{% endblock %}
+    {% block script %} {% endblock %}
 </head>
 <body>
 <div class="container-fluid">
@@ -118,7 +119,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-2">
-                    {% url 'weibo:chinamap' as url %}
+                    {% url 'weibo:rumor' as url %}
                     <a class="nav-link {% if request.path == url %} active {% endif %}text-white" href="{{ url }}">
                         <div class="w-100 d-flex justify-content-center">
                             <img src="{% static 'analyze.png' %}" alt="home" class="icon">
@@ -136,7 +137,7 @@
                         </div>
                         <p class="nav-text m-0">
                             传播预测
-                        </p >
+                        </p>
                     </a>
                 </li>
                 <li class="nav-item my-2">
