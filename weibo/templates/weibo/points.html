@@ -79,12 +79,12 @@
         let point = echarts.init(document.getElementById('pointmap'));
         var data = [
             {
-                name: '0',
+                name: '2537869260',
                 fixed: true,
                 x: point.getWidth() / 2,
                 y: point.getHeight() / 2,
                 symbolSize: 40,
-                id: '0',
+                id: '2537869260',
             }
         ];
         const edges = [];
@@ -128,20 +128,21 @@
         let points = {{points|safe}};
         for (each of points)
         {
-            data.push({
-                name: each[0],
-                symbolSize: 20,
-                itemStyle: {
-                    normal: {
-                        color: '#808080',
-                        label: {
-                            color: '#000', //字的颜色
-                            // borderColor: '#52ff18',  //拐点边框颜色
-                            // show: true  //设置这个就会把值显示在图表上
+            if (each[0] != '2537869260')
+                data.push({
+                    name: each[0],
+                    symbolSize: 20,
+                    itemStyle: {
+                        normal: {
+                            color: '#808080',
+                            label: {
+                                color: '#000', //字的颜色
+                                // borderColor: '#52ff18',  //拐点边框颜色
+                                // show: true  //设置这个就会把值显示在图表上
+                            }
                         }
                     }
-                }
-            });
+                });
         }
 
         // let color = 'rgb(239,50,70)';
